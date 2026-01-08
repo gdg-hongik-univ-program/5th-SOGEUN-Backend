@@ -45,7 +45,7 @@ public class UserController {
 
         return ResponseEntity
                 .created(URI.create("/api/users/" + userId))
-                .build();
+                .build(); //UserCreateResponse 사용하게 수정 필요
     }
 
     // 로그인
@@ -65,7 +65,7 @@ public class UserController {
 
     // 내 정보 반환
     @Operation(summary = "내 정보 조회", description = "accessToken이 유효하면 내 정보 반환")
-    @GetMapping("/me")
+    @GetMapping("/users/me")
     public MeResponse me(Authentication authentication) {
         Long userId = extractUserId(authentication);
         log.debug("[내정보] 조회 요청 - userId={}", userId);
@@ -74,7 +74,7 @@ public class UserController {
 
     // 닉네임 변경
     @Operation(summary = "닉네임 변경", description = "accessToken이 유효하면 닉네임 변경")
-    @PatchMapping("/me/nickname")
+    @PatchMapping("/users/me/nickname")
     public MeResponse updateNickname(Authentication authentication,
                                      @RequestBody @Valid UpdateNicknameRequest request) {
         Long userId = extractUserId(authentication);
